@@ -1,7 +1,12 @@
-function start() {
+var recorde = 0;
+var niveldoGame = 9;
+function start(nivel,id) {
   // Inicio da função start()
-
+  niveldoGame = nivel;
   $("#inicio").hide();
+  if(id="fim"){
+    $("#fim").remove();
+  }
 
   $("#fundoGame").append("<div id='jogador' class='anima1'></div>");
   $("#fundoGame").append("<div id='inimigo1' class='anima2'></div>");
@@ -9,6 +14,7 @@ function start() {
   $("#fundoGame").append("<div id='amigo' class='anima3' ></div>");
   $("#fundoGame").append("<div id='placar'></div>");
   $("#fundoGame").append("<div id='energia'></div>");
+  $("#fundoGame").append("<div id='record'></div>");
 
   //Principais variáveis
 
@@ -18,7 +24,7 @@ function start() {
     S: 83,
     D: 68,
   };
-  var velocidade = 9;
+  var velocidade = nivel;
   var posicaoY = parseInt(Math.random() * 334);
   var podeAtirar = true;
   var fimdejogo = false;
@@ -27,6 +33,7 @@ function start() {
   var salvos = 0;
   var perdidos = 0;
   var energiaAtual = 3;
+ 
 
   var somDisparo = document.getElementById("somDisparo");
   var somExplosao = document.getElementById("somExplosao");
@@ -68,6 +75,7 @@ function start() {
     colisao();
     placar();
     energia();
+    record();
   } // Fim da função loop()
 
   //Função que movimenta o fundo do jogo
@@ -335,6 +343,7 @@ function start() {
     );
   } //fim da função placar()
   //Barra de energia
+  
 
   function energia() {
     if (energiaAtual == 3) {
@@ -358,6 +367,9 @@ function start() {
 
   //Função GAME OVER
 	function gameOver() {
+    if(pontos > recorde){
+      recorde = pontos;
+    }
 		fimdejogo=true;
 		musica.pause();
 		somGameover.play();
@@ -372,8 +384,17 @@ function start() {
 		
 		$("#fundoGame").append("<div id='fim'></div>");
 		
-		$("#fim").html("<h1> Game Over </h1><p>Sua pontuação foi: " + pontos + "</p>" + "<div id='reinicia' onClick=reiniciaJogo()><h3>Jogar Novamente</h3></div>");
+		$("#fim").html("<h1> Game Over </h1><p>Sua pontuação foi: " + pontos + "</p>" + "<div id='reinicia' onClick=reiniciaJogo()><h3>Jogar Novamente</h3></div>" 
+     + "<div id='level' onClick=mudarNivel('fim')><h3>Mudar Nível</h3></div>");
 		} // Fim da função gameOver();
+    
+    function record(){
+      $("#record").html(
+        "<h2> Record: " +
+        recorde +
+        "</h2>"
+      );
+    }
 	
 } // Fim da função start
 
@@ -382,6 +403,16 @@ function start() {
 function reiniciaJogo() {
 	somGameover.pause();
 	$("#fim").remove();
-	start();
+	start(niveldoGame);
 	
+} //Fim da função reiniciaJogo
+		
+function mudarNivel(id) {
+  somGameover.pause();
+  $("#"+ id).html("<br>"+
+  `<div id='level' onClick=start(9,${id})><h3>Facil</h3></div>
+   <div id='level' onClick=start(12,${id})><h3>Medio</h3></div>
+  <div id='level' onClick=start(15,${id})><h3>Dificio</h3></div>`
+  )
+  
 } //Fim da função reiniciaJogo
