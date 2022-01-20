@@ -1,4 +1,4 @@
-var recorde = 0;
+var recorde = localStorage.record ?? 0;
 var niveldoGame = 9;
 function start(nivel,id) {
   // Inicio da função start()
@@ -369,6 +369,7 @@ function start(nivel,id) {
 	function gameOver() {
     if(pontos > recorde){
       recorde = pontos;
+      localStorage.record = recorde
     }
 		fimdejogo=true;
 		musica.pause();
