@@ -24,7 +24,7 @@ Foi possível desenvolver conseitos importantes de CSS e HTML e JavaScript a fim
 
 ## ⚙ Instalação  
 se quiser baixar e rodar na sua máquina, clone o repositório comgit clone 
-clone ```https://github.com/IsraelJulio/Game-DinoChrome.git```
+clone ```https://github.com/IsraelJulio/Game---Falcao-Negro.git```
 
 E acesse o arquivo index.html no seu navegador favorito!
 
